@@ -1,0 +1,239 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.6rem; /* 16px assuming 1rem = 10px */
+}
+
+.cartSidebar {
+  width: 0;
+  background-color: #fff;
+  border-left: 1px solid #e5e7eb;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    width: 30%;
+  }
+}
+
+.cartHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+
+  h2 {
+    margin: 0;
+    font-size: 2rem; /* 20px */
+    font-weight: 600;
+    color: #1f2a44;
+  }
+}
+
+.closeButton {
+  padding: 0.5rem 1rem;
+  background-color: #e5e7eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.4rem; /* 14px */
+  color: #4b5563;
+
+  &:hover {
+    background-color: #d1d5db;
+  }
+}
+
+.cartItems {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 4px;
+  }
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 1.6rem; /* 16px */
+
+  .removeButton {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 0.5rem;
+
+    &:hover {
+      color: #dc2626;
+    }
+  }
+}
+
+.cartFooter {
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f8f9fa;
+
+  h3 {
+    margin: 0 0 1rem;
+    font-size: 1.8rem; /* 18px */
+  }
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.6rem; /* 16px */
+
+  &:hover {
+    background-color: #059669;
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f0f2f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2.4rem; /* 24px */
+    font-weight: 600;
+    color: #1f2a44;
+  }
+}
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.6rem; /* 16px */
+
+  &:hover {
+    background-color: #2563eb;
+  }
+}
+
+.componentList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.componentCard {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.8rem; /* 18px */
+    color: #1f2a44;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.6rem; /* 16px */
+    color: #4b5563;
+  }
+
+  .price {
+    font-weight: 600;
+    color: #10b981;
+  }
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  min-height: 100px;
+}
+
+.previewButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.6rem; /* 16px */
+
+  &:hover {
+    background-color: #2563eb;
+  }
+}
+
+.previewCard {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background-color: #fff;
+  width: 100%;
+  text-align: center;
+
+  h3 {
+    font-size: 1.6rem; /* 16px */
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    font-size: 1.4rem; /* 14px */
+    margin: 0;
+  }
+}
+
+.previewInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1.6rem; /* 16px */
+}
