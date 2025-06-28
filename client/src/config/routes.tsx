@@ -1,15 +1,11 @@
 const routes = {
   home: "/",
   notFound: "/*",
-  about: "/about",
-  contact: "/contact",
-  intro: "/intro",
-  pageBuider: "/builder",
+  productDetail: "/product-detail",
   beNgoan: "/be-ngoan",
-  aiDesign: "/ai-design",
-  components: "/components",
-  settings: "/settings",
-  profile: "/profile",
+  lms: "/lms",
+  question: "/question",
+  upload: "/upload",
 };
 
 export default routes;

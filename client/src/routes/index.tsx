@@ -1,21 +1,18 @@
 import { routes } from "~/config";
-import DefaultLayout from "~/layout/DefaultLayout";
 import EmptyLayout from "~/layout/EmptyLayout";
-import AIDesignPage from "~/pages/AIDesignPage";
 import BeNgoanPage from "~/pages/BeNgoanPage";
-import BuilderPage from "~/pages/BuilderPage";
-import ComponentShowcasePage from "~/pages/ComponentShowcasePage";
+import LmsPage from "~/pages/LmsPage";
 import NotFoundPage from "~/pages/NotFoundPage";
-import ProfilePage from "~/pages/ProfilePage";
-import SettingsPage from "~/pages/SettingsPage";
-import TemplatePage from "~/pages/TemplatePage";
-import WebsiteIntroPage from "~/pages/WebsiteIntroPage";
+import ProductDetail from "~/pages/ProductDetail";
+import ProductPage from "~/pages/ProductPage";
+import QuestionPage from "~/pages/QuestionPage";
+import UploadPage from "~/pages/UploadPage";
 
 const publicRoute = [
   {
     path: routes.home,
-    component: TemplatePage,
-    layout: DefaultLayout,
+    component: ProductPage,
+    layout: EmptyLayout,
   },
   {
     path: routes.notFound,
@@ -23,14 +20,9 @@ const publicRoute = [
     layout: EmptyLayout,
   },
   {
-    path: routes.intro,
-    component: WebsiteIntroPage,
-    layout: DefaultLayout,
-  },  
-  {
-    path: routes.pageBuider,
-    component: BuilderPage,
-    layout: DefaultLayout,
+    path: routes.productDetail,
+    component: ProductDetail,
+    layout: EmptyLayout,
   },
   {
     path: routes.beNgoan,
@@ -38,24 +30,19 @@ const publicRoute = [
     layout: EmptyLayout,
   },
   {
-    path: routes.aiDesign,
-    component: AIDesignPage,
+    path: routes.lms,
+    component: LmsPage,
     layout: EmptyLayout,
   },
   {
-    path: routes.components,
-    component: ComponentShowcasePage,
+    path: routes.question,
+    component: QuestionPage,
     layout: EmptyLayout,
   },
   {
-    path: routes.settings,
-    component: SettingsPage,
-    layout: DefaultLayout,
-  },
-  {
-    path: routes.profile,
-    component: ProfilePage,
-    layout: DefaultLayout,
+    path: routes.upload,
+    component: UploadPage,
+    layout: EmptyLayout,
   },
 ];
 const privateRoute = [];
