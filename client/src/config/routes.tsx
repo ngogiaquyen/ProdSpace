@@ -4,8 +4,12 @@ const routes = {
   productDetail: "/product-detail",
   beNgoan: "/be-ngoan",
   lms: "/lms",
-  question: "/question",
+  test: "/test",
   upload: "/upload",
+  list: "/list",
+  testManagement: '/test-management',
+  testEdit: '/test-edit',
+  login: '/login',
 };
 
 export default routes;

@@ -1,11 +1,16 @@
 import { routes } from "~/config";
 import EmptyLayout from "~/layout/EmptyLayout";
+import LmsLayout from "~/layout/LmsLayout/LmsLayout";
 import BeNgoanPage from "~/pages/BeNgoanPage";
 import LmsPage from "~/pages/LmsPage";
+import LoginPage from "~/pages/LoginPage";
 import NotFoundPage from "~/pages/NotFoundPage";
 import ProductDetail from "~/pages/ProductDetail";
 import ProductPage from "~/pages/ProductPage";
 import QuestionPage from "~/pages/QuestionPage";
+import TestEdit from "~/pages/TestEdit";
+import TestList from "~/pages/TestList";
+import TestManagement from "~/pages/TestManagement/TestManagement";
 import UploadPage from "~/pages/UploadPage";
 
 const publicRoute = [
@@ -32,16 +37,36 @@ const publicRoute = [
   {
     path: routes.lms,
     component: LmsPage,
-    layout: EmptyLayout,
+    layout: LmsLayout,
   },
   {
-    path: routes.question,
+    path: routes.test,
     component: QuestionPage,
-    layout: EmptyLayout,
+    layout: LmsLayout,
   },
   {
     path: routes.upload,
     component: UploadPage,
+    layout: LmsLayout,
+  },
+  {
+    path: routes.list,
+    component: TestList,
+    layout: LmsLayout,
+  },
+  {
+    path: routes.testManagement,
+    component: TestManagement,
+    layout: LmsLayout,
+  },
+  {
+    path: routes.testEdit,
+    component: TestEdit,
+    layout: LmsLayout,
+  },
+  {
+    path: routes.login,
+    component: LoginPage,
     layout: EmptyLayout,
   },
 ];

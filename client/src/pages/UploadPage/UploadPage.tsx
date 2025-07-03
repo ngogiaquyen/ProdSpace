@@ -17,7 +17,22 @@ interface Question {
   options: Option[];
 }
 
+interface Subject {
+  id: number;
+  name: string;
+}
+
+// Dữ liệu môn học tĩnh (giả lập từ bảng subjects)
+const mockSubjects: Subject[] = [
+  { id: 1, name: 'Môn Abc' },
+  { id: 2, name: 'Môn Xyz' },
+];
+
 const UploadPage: React.FC = () => {
+  const [subjects] = useState<Subject[]>(mockSubjects);
+  const [selectedSubject, setSelectedSubject] = useState<number | null>(null);
+  const [testName, setTestName] = useState<string>('');
+  const [testStatus, setTestStatus] = useState<'Active' | 'Draft'>('Draft');
   const [quiz, setQuiz] = useState<Question[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,13 +46,19 @@ const UploadPage: React.FC = () => {
       return;
     }
 
+    if (!selectedSubject || !testName) {
+      setError('Vui lòng chọn môn học và nhập tên bài kiểm tra.');
+      setQuiz([]);
+      return;
+    }
+
     try {
       setError(null);
       const arrayBuffer = await file.arrayBuffer();
       const result = await mammoth.extractRawText({ arrayBuffer });
       const text = result.value;
 
-      // Parse text to extract questions and answers
+      // Parse text để lấy câu hỏi và lựa chọn
       const questions = parseWordContent(text);
       setQuiz(questions);
     } catch (err) {
@@ -45,7 +66,7 @@ const UploadPage: React.FC = () => {
       setQuiz([]);
     }
 
-    // Reset input to allow re-uploading the same file
+    // Reset input file
     event.target.value = '';
   };
 
@@ -56,7 +77,7 @@ const UploadPage: React.FC = () => {
 
     lines.forEach((line) => {
       line = line.trim();
-      // Match question (e.g., "1. Question text")
+      // Match câu hỏi (e.g., "1. Question text")
       const questionMatch = line.match(/^(\d+)\.\s*(.+)$/);
       if (questionMatch) {
         if (currentQuestion) {
@@ -70,7 +91,7 @@ const UploadPage: React.FC = () => {
         return;
       }
 
-      // Match option (e.g., "A. Option text" or "A. Option text *")
+      // Match lựa chọn (e.g., "A. Option text" or "A. Option text *")
       const optionMatch = line.match(/^([A-D])\.\s*(.+?)(\s*\*?)$/);
       if (optionMatch && currentQuestion) {
         const isCorrect = optionMatch[3].includes('*');
@@ -93,6 +114,38 @@ const UploadPage: React.FC = () => {
     <div className={cx('container')}>
       <div className={cx('upload-section')}>
         <h1 className={cx('title')}>Upload Bài Kiểm Tra</h1>
+        <select
+          value={selectedSubject || ''}
+          onChange={(e) => setSelectedSubject(Number(e.target.value))}
+          className={cx('file-input')}
+          aria-label="Chọn môn học"
+        >
+          <option value="" disabled>
+            Chọn môn học
+          </option>
+          {subjects.map((subject) => (
+            <option key={subject.id} value={subject.id}>
+              {subject.name}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          placeholder="Tên bài kiểm tra"
+          value={testName}
+          onChange={(e) => setTestName(e.target.value)}
+          className={cx('file-input')}
+          aria-label="Nhập tên bài kiểm tra"
+        />
+        <select
+          value={testStatus}
+          onChange={(e) => setTestStatus(e.target.value as 'Active' | 'Draft')}
+          className={cx('file-input')}
+          aria-label="Chọn trạng thái"
+        >
+          <option value="Draft">Draft</option>
+          <option value="Active">Active</option>
+        </select>
         <input
           type="file"
           accept=".docx"
@@ -100,9 +153,11 @@ const UploadPage: React.FC = () => {
           className={cx('file-input')}
           aria-label="Upload file Word"
         />
+        <button className={cx('upload-btn')} onClick={() => {}}>
+          UPLOAD
+        </button>
         {error && <p className={cx('error')}>{error}</p>}
       </div>
-        <button className={cx('upload-btn')}>UPLOAD</button>
       {quiz.length > 0 && (
         <div className={cx('quiz-section')}>
           <h2 className={cx('quiz-title')}>Danh Sách Câu Hỏi</h2>
