@@ -1,0 +1,141 @@
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .content {
+    flex: 1;
+    overflow: auto;
+
+    .banner {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      background-color: #3b82f6;
+      gap: 24px;
+
+      .banner-logo {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+
+      .banner-text {
+        flex: 1;
+        color: white;
+        font-size: 18px;
+        line-height: 1.2;
+
+        .banner-title {
+          font-size: 20px;
+          font-weight: 800;
+        }
+
+        .banner-subtitle {
+          margin-top: 12px;
+          font-style: italic;
+          font-weight: 600;
+          max-width: 400px;
+        }
+      }
+
+      .banner-qr {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+
+        .qr-code {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: white;
+          font-size: 12px;
+
+          img {
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        .app-screens {
+          width: 180px;
+          height: 120px;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .courses-header {
+      background-color: #2563eb;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 24px;
+    }
+
+    .courses-table {
+      overflow-x: auto;
+
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        color: #374151;
+        font-size: 14px;
+
+        thead {
+          background-color: #e0e7ff;
+          font-weight: 600;
+
+          th {
+            padding: 12px 16px;
+            border-bottom: 1px solid #d1d5db;
+            text-align: left;
+
+            &:nth-child(1) {
+              width: 40px;
+            }
+            &:nth-child(3),
+            &:nth-child(4) {
+              width: 100px;
+              text-align: center;
+            }
+            &:nth-child(5) {
+              width: 120px;
+              text-align: center;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            border-bottom: 1px solid #e5e7eb;
+
+            td {
+              padding: 12px 16px;
+              text-align: left;
+
+              &:nth-child(1),
+              &:nth-child(3),
+              &:nth-child(4),
+              &:nth-child(5) {
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

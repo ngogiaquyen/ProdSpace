@@ -1,0 +1,53 @@
+@use 'sass:map';
+
+// Định nghĩa biến màu sắc để đồng bộ với UploadPage
+$colors: (
+  primary: #2563eb,
+  error: #dc2626,
+  text-dark: #1e1e2d,
+  text-light: #4b5563,
+  border: #d1d5db,
+  background: #f0f1f3,
+  white: #ffffff,
+  google-border: #dadce0,
+  google-text: #3c4043,
+);
+
+.container {
+  padding: 32px;
+}
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .title {
+    margin-bottom: 16px;
+  }
+
+  .google-signin-button {
+    border-radius: 4px;
+    padding: 10px 24px;
+    width: 100%;
+    max-width: 300px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .google-logo {
+      width: 18px;
+      height: 18px;
+      background-image: url('https://www.google.com/favicon.ico');
+      background-size: cover;
+    }
+  }
+
+}

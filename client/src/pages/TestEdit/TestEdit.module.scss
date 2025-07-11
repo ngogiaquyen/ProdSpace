@@ -1,0 +1,216 @@
+.test-edit {
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px;
+
+      .back-icon {
+        margin-right: 8px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .quiz-section {
+    margin-bottom: 30px;
+
+    .quiz-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .no-questions {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+    }
+
+    .question {
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .question-text {
+        font-weight: 600;
+        color: #333;
+      }
+
+      .question-actions {
+        display: flex;
+        gap: 10px;
+
+        .action-button {
+          border: none;
+          background: none;
+          cursor: pointer;
+          padding: 5px;
+          font-size: 16px;
+
+          &.edit {
+            color: #007bff;
+            &:hover {
+              color: #0056b3;
+            }
+          }
+
+          &.delete {
+            color: #dc3545;
+            &:hover {
+              color: #b02a37;
+            }
+          }
+        }
+      }
+
+      .options {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .option {
+          padding: 8px 0;
+          color: #333;
+
+          &.correct {
+            font-weight: 600;
+            color: #28a745;
+          }
+
+          .correct-mark {
+            font-style: italic;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .edit-form,
+  .add-form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    .add-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .correct-label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #333;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+
+      .save-button {
+        padding: 8px 16px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover {
+          background-color: #218838;
+        }
+      }
+
+      .cancel-button {
+        padding: 8px 16px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover {
+          background-color: #b02a37;
+        }
+      }
+    }
+  }
+
+  .add-form {
+    .add-button {
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+}

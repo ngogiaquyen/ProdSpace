@@ -1,0 +1,15 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx", // hoặc "react" nếu dùng React <17
+    "lib": ["DOM", "ESNext"], // cần thiết để nhận diện JSX và DOM types
+    "types": ["vite/client", "react", "react-dom"],
+    "target": "ES2020",
+    "module": "ESNext",
+    "verbatimModuleSyntax": true,
+  }
+}

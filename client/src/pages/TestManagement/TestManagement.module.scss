@@ -1,0 +1,140 @@
+.test-management {
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px;
+
+      .back-icon {
+        margin-right: 8px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .content {
+    .subject-section {
+      margin-bottom: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      background-color: #fff;
+
+      .subject-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .subject-title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #333;
+
+          .subject-icon {
+            margin-right: 10px;
+            color: #007bff;
+          }
+        }
+
+        .add-test {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .test-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+          }
+
+          .add-button {
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            &:disabled {
+              background-color: #ccc;
+              cursor: not-allowed;
+            }
+
+            &:hover:not(:disabled) {
+              background-color: #218838;
+            }
+          }
+        }
+      }
+
+      .test-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+          background-color: #f8f9fa;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .no-tests {
+          text-align: center;
+          color: #888;
+          padding: 20px;
+        }
+
+        .action-button {
+          border: none;
+          background: none;
+          cursor: pointer;
+          padding: 5px;
+          font-size: 16px;
+
+          &.edit {
+            color: #007bff;
+            &:hover {
+              color: #0056b3;
+            }
+          }
+
+          &.delete {
+            color: #dc3545;
+            &:hover {
+              color: #b02a37;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+
+.sidebar {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e2e8f0;
+  padding: 24px;
+  gap: 24px;
+}
+
+.sidebar-header {
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-info {
+      display: flex;
+      flex-direction: column;
+
+      .version {
+        font-size: 12px;
+        font-weight: 600;
+        color: #3b82f6;
+        background-color: #e0e7ff;
+        border-radius: 9999px;
+        padding: 2px 8px;
+      }
+
+      .url {
+        font-size: 12px;
+        color: #374151;
+      }
+    }
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #f3f4f6;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      flex: 1;
+
+      .user-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+        line-height: 1;
+      }
+
+      .user-id {
+        font-size: 12px;
+        color: #6b7280;
+      }
+    }
+
+    .filter-icon {
+      color: #6b7280;
+    }
+  }
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+
+    &.active {
+      background-color: #e0e7ff;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .nav-icon {
+      color: #6366f1;
+    }
+    
+  }
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+  }
+
+  span{
+    margin-left: 8px;
+  }
+}
