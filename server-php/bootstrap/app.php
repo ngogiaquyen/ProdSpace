@@ -9,6 +9,7 @@ return Application::configure(basePath: dirname(__DIR__))
          web: [
             __DIR__ . '/../routes/web.php',
             // __DIR__ . '/../routes/api-product.php', // Thêm file route ở đây
+            // __DIR__ . '/../routes/api-product.php', // Thêm file route ở đây
         ],
         // api: __DIR__ . '/../routes/api.php', // bỏ dòng này
         commands: __DIR__.'/../routes/console.php',
