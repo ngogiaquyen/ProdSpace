@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './TestList.module.scss';
 import { routes } from '~/config';
@@ -18,7 +18,6 @@ interface Tests {
 
 
 const TestList: React.FC = () => {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const subjectId = searchParams.get('subject_id');
   const [tests, setTests] = useState<Tests[]>([]);

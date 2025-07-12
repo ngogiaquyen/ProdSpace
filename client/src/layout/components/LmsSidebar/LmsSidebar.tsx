@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
       <div className={cx('sidebar-section')}>
         <p className={cx('section-title')}>Học tập</p>
         {
-          subjectInfo.map((subject, index) => (
+          subjectInfo.map((subject) => (
             <NavLink key={subject.subject_id} to={`${routes.list}?subject_id=${subject.subject_id}`} className={cx('nav-item', 'disabled')}>
               <FontAwesomeIcon icon={faCalendarAlt} className={cx('nav-icon')} />
               <span>{subject.name}</span>
