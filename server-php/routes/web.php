@@ -20,6 +20,7 @@ Route::prefix('subjects')->group(function () {
     Route::post('/{subject_id}/tests/{test_id}/questions/bulk', [QuestionController::class, 'bulkStore'])->name('subjects.tests.questions.bulk');
 });
 
+
 // Routes cho bảng Tests
 Route::prefix('tests')->group(function () {
     Route::get('/', [TestController::class, 'index'])->name('tests.index');
