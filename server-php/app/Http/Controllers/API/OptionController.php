@@ -22,7 +22,7 @@ class OptionController extends Controller
     {
         $validated = $request->validate([
             'question_id' => 'required|exists:questions,question_id',
-            'label' => 'required|string|max:10',
+            'label' => 'required|string|max:255',
             'text' => 'required|string',
             'is_correct' => 'required|boolean'
         ]);
@@ -35,7 +35,7 @@ class OptionController extends Controller
         $option = Option::findOrFail($id);
         $validated = $request->validate([
             'question_id' => 'required|exists:questions,question_id',
-            'label' => 'required|string|max:10',
+            'label' => 'required|string|max:255',
             'text' => 'required|string',
             'is_correct' => 'required|boolean'
         ]);

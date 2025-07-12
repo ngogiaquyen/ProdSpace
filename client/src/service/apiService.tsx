@@ -29,7 +29,7 @@ export const getData = async (endpoint : string, params: Record<string, string> 
     
   }
 };
-export const postData = async (endpoint : string, payload: string) => {
+export const postData = async (endpoint : string, payload: any) => {
   const url = `${BASE_URL}${endpoint}`;
   try {
     const response = await fetch(url, {

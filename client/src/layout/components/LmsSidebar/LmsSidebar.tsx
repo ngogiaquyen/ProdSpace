@@ -9,6 +9,7 @@ import {
 import { routes } from '~/config';
 import { useEffect, useState } from 'react';
 import { getData } from '~/service/apiService';
+import { NavLink } from 'react-router-dom';
 
 interface SubjectInfo {
   subject_id: number,
@@ -73,28 +74,28 @@ const Sidebar: React.FC = () => {
         <p className={cx('section-title')}>Học tập</p>
         {
           subjectInfo.map((subject, index) => (
-            <a key={subject.subject_id} href={`${routes.list}?subject_id=${subject.subject_id}`} className={cx('nav-item', 'disabled')}>
+            <NavLink key={subject.subject_id} to={`${routes.list}?subject_id=${subject.subject_id}`} className={cx('nav-item', 'disabled')}>
               <FontAwesomeIcon icon={faCalendarAlt} className={cx('nav-icon')} />
               <span>{subject.name}</span>
-            </a>
+            </NavLink>
           ))
         }
       </div>
 
       <div className={cx('sidebar-section')}>
         <p className={cx('section-title')}>Other</p>
-        <a href={routes.upload} className={cx('nav-item', 'disabled')}>
+        <NavLink to={routes.upload} className={cx('nav-item', 'disabled')}>
           <FontAwesomeIcon icon={faCalendarAlt} className={cx('nav-icon')} />
           <span>Tải lên</span>
-        </a>
-        <a href={routes.testManagement} className={cx('nav-item', 'disabled')}>
+        </NavLink>
+        <NavLink to={routes.testManagement} className={cx('nav-item', 'disabled')}>
           <FontAwesomeIcon icon={faCalendarAlt} className={cx('nav-icon')} />
           <span>Quản lý</span>
-        </a>
-        <a href={routes.login} className={cx('nav-item', 'disabled')}>
+        </NavLink>
+        <NavLink to={routes.login} className={cx('nav-item', 'disabled')}>
           <FontAwesomeIcon icon={faCalendarAlt} className={cx('nav-icon')} />
           <span>Đăng nhập</span>
-        </a>
+        </NavLink>
       </div>
     </aside>
   );

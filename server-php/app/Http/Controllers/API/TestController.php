@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuestionResource;
 use App\Models\Test;
 use Illuminate\Http\Request;
 
@@ -47,5 +48,21 @@ class TestController extends Controller
         $test = Test::findOrFail($id);
         $test->delete();
         return response()->json(null, 204);
+    }
+
+    public function getQuestionsBySubjectAndTest($subject_id, $test_id)
+    {
+        $test = Test::with(['subject', 'questions.options'])
+            ->where('subject_id', $subject_id)
+            ->where('test_id', $test_id)
+            ->firstOrFail();
+
+        return [
+            'test_id' => $test->test_id,
+            'test_name' => $test->name,
+            'subject_id' => $test->subject_id,
+            'subject_name' => $test->subject->name,
+            'questions' => QuestionResource::collection($test->questions)
+        ];
     }
 }

@@ -25,20 +25,21 @@ const TestList: React.FC = () => {
 
 
   const handleLoadData = async () => {
+    console.log(subjectId)
     const newList = await getData(`/subjects/${subjectId}/tests`);
     if(newList && newList.data){
-      setTests(newList);
+      setTests(newList.data);
       console.log(newList.data)
     }
   }
 
   useEffect(() => {
     handleLoadData();
-  }, [])
+  }, [subjectId])
 
-  const handleTestClick = (testId: number) => {
-    navigate(`/test/${testId}`);
-  };
+
+  if(!tests) return <div>Đang tải</div>
+  if(tests.length === 0) return <div>Không tìm thấy bài học</div>
 
   return (
     <div className={cx('test-list-container')}>
@@ -47,9 +48,8 @@ const TestList: React.FC = () => {
         {tests.map((test, index) => (
           <NavLink
             key={test.test_id}
-            to={routes.test}
+            to={`${routes.test}?subject_id=${subjectId}&test_id=${test.test_id}`}
             className={cx('test-item')}
-            onClick={() => handleTestClick(test.test_id)}
           >
             <span className={cx('test-number')}>{index + 1}</span>
             <span className={cx('test-title')}>{test.name}</span>

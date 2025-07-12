@@ -15,6 +15,8 @@ Route::prefix('subjects')->group(function () {
     Route::post('/', [SubjectController::class, 'store'])->name('subjects.store');
     Route::put('/{id}', [SubjectController::class, 'update'])->name('subjects.update');
     Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
+    Route::get('/{subject_id}/tests/{test_id}/questions', [TestController::class, 'getQuestionsBySubjectAndTest'])->name('subjects.tests.questions');
+    Route::post('/{subject_id}/tests/{test_id}/questions/bulk', [QuestionController::class, 'bulkStore'])->name('subjects.tests.questions.bulk');
 });
 
 // Routes cho bảng Tests
@@ -33,7 +35,7 @@ Route::prefix('questions')->group(function () {
     Route::post('/', [QuestionController::class, 'store'])->name('questions.store');
     Route::put('/{id}', [QuestionController::class, 'update'])->name('questions.update');
     Route::delete('/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy');
-    Route::post('/bulk', [QuestionController::class, 'bulkStore'])->name('questions.bulkStore');
+    // Route::post('/bulk', [QuestionController::class, 'bulkStore'])->name('questions.bulkStore');
 });
 
 // Routes cho bảng Options

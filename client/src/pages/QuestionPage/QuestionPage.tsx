@@ -1,150 +1,131 @@
 import classNames from 'classnames/bind';
 import styles from './QuestionPage.module.scss';
 import { useState, useEffect } from 'react';
-
-
-const questionsData = [
-  {
-    "id": 6,
-    "question": "Trong cấu hình tệp <strong>web.xml</strong>, thẻ <url-pattern> dùng để:",
-    "options": [
-      {
-        "id": "optionA",
-        "label": "A",
-        "value": "A",
-        "text": "Thiết lập phương thức HTTP được hỗ trợ.",
-        "isCorrect": false
-      },
-      {
-        "id": "optionB",
-        "label": "B",
-        "value": "B",
-        "text": "Xác định lớp triển khai Servlet.",
-        "isCorrect": false
-      },
-      {
-        "id": "optionC",
-        "label": "C",
-        "value": "C",
-        "text": "Khai báo tên của Servlet.",
-        "isCorrect": false
-      },
-      {
-        "id": "optionD",
-        "label": "D",
-        "value": "D",
-        "text": "Định nghĩa đường dẫn URL ánh xạ tới Servlet.",
-        "isCorrect": true
-      }
-    ],
-    "isReviewed": false
-  },
-  {
-    "id": 7,
-    "question": "Phương thức nào được sử dụng để khởi tạo một Servlet?",
-    "options": [
-      {
-        "id": "optionA7",
-        "label": "A",
-        "value": "A",
-        "text": "doGet()",
-        "isCorrect": false
-      },
-      {
-        "id": "optionB7",
-        "label": "B",
-        "value": "B",
-        "text": "init()",
-        "isCorrect": true
-      },
-      {
-        "id": "optionC7",
-        "label": "C",
-        "value": "C",
-        "text": "service()",
-        "isCorrect": false
-      },
-      {
-        "id": "optionD7",
-        "label": "D",
-        "value": "D",
-        "text": "destroy()",
-        "isCorrect": false
-      }
-    ],
-    "isReviewed": false
-  }
-]
+import { useSearchParams } from 'react-router-dom';
+import { getData } from '~/service/apiService';
 
 const cx = classNames.bind(styles);
 
 interface Option {
-  id: string;
+  option_id: number;
+  question_id: number;
   label: string;
-  value: string;
   text: string;
-  isCorrect: boolean;
+  is_correct: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Question {
-  id: number;
-  question: string;
+  question_id: number;
+  test_id: number;
+  text: string;
   options: Option[];
-  isReviewed: boolean;
+  created_at: string;
+  updated_at: string;
+  isReviewed?: boolean; // Thêm trường isReviewed để theo dõi trạng thái xem lại
+}
+
+interface QuizData {
+  test_id: number;
+  test_name: string;
+  subject_id: number;
+  subject_name: string;
+  questions: Question[];
 }
 
 const QuestionPage: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [reviewChecked, setReviewChecked] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  const subject_id = searchParams.get('subject_id');
+  const test_id = searchParams.get('test_id');
+
+  const handleLoadData = async () => {
+    if (!subject_id || !test_id) {
+      setError('Thiếu subject_id hoặc test_id');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = await getData(`/subjects/${subject_id}/tests/${test_id}/questions`);
+      // Thêm trường isReviewed mặc định là false cho mỗi câu hỏi
+      const questionsWithReview = data.questions.map((question: Question) => ({
+        ...question,
+        isReviewed: false,
+      }));
+      setQuizData({ ...data, questions: questionsWithReview });
+      setLoading(false);
+      // Đặt đáp án mặc định cho câu hỏi đầu tiên
+      if (data.questions.length > 0) {
+        const firstQuestion = data.questions[0];
+        const correctOption = firstQuestion.options.find((opt: Option) => opt.is_correct);
+        setSelectedOption(correctOption?.label || '');
+        setReviewChecked(firstQuestion.isReviewed || false);
+      }
+    } catch (err) {
+      setError('Không thể tải dữ liệu câu hỏi');
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Load questions từ JSON
-    setQuestions(questionsData);
-    // Đặt đáp án mặc định là đáp án đúng của câu hỏi đầu tiên
-    const firstQuestion = questionsData[0];
-    const correctOption = firstQuestion.options.find((opt) => opt.isCorrect);
-    setSelectedOption(correctOption?.value || '');
-    setReviewChecked(firstQuestion.isReviewed);
-  }, []);
+    handleLoadData();
+  }, [subject_id, test_id]);
 
-  const handleOptionChange = (value: string) => {
-    setSelectedOption(value);
+  const handleOptionChange = (label: string) => {
+    setSelectedOption(label);
   };
 
   const handleReviewToggle = () => {
     setReviewChecked(!reviewChecked);
-    // Cập nhật trạng thái isReviewed trong dữ liệu nếu cần
-    const updatedQuestions = [...questions];
-    updatedQuestions[currentQuestionIndex].isReviewed = !reviewChecked;
-    setQuestions(updatedQuestions);
-  };
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      const nextQuestion = questions[currentQuestionIndex + 1];
-      const correctOption = nextQuestion.options.find((opt) => opt.isCorrect);
-      setSelectedOption(correctOption?.value || '');
-      setReviewChecked(nextQuestion.isReviewed);
+    if (quizData) {
+      const updatedQuestions = [...quizData.questions];
+      updatedQuestions[currentQuestionIndex].isReviewed = !reviewChecked;
+      setQuizData({ ...quizData, questions: updatedQuestions });
     }
   };
 
-  if (questions.length === 0) {
-    return <div>Loading...</div>;
+  const handleNextQuestion = () => {
+    if (quizData && currentQuestionIndex < quizData.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      const nextQuestion = quizData.questions[currentQuestionIndex + 1];
+      const correctOption = nextQuestion.options.find((opt: Option) => opt.is_correct);
+      setSelectedOption(correctOption?.label || '');
+      setReviewChecked(nextQuestion.isReviewed || false);
+    }
+  };
+
+  if (loading) {
+    return <div className={cx('container')}>Đang tải...</div>;
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
+  if (error) {
+    return <div className={cx('container')}>{error}</div>;
+  }
+
+  if (!quizData || quizData.questions.length === 0) {
+    return <div className={cx('container')}>Không có câu hỏi nào</div>;
+  }
+
+  const currentQuestion = quizData.questions[currentQuestionIndex];
 
   return (
     <div className={cx('container')}>
       <div className={cx('header')}>
+        <div className={cx('test-info')}>
+          <h2>{quizData.subject_name} - {quizData.test_name}</h2>
+        </div>
         <div className={cx('question')}>
-          <p className={cx('question-number')}>Câu {currentQuestion.id}:</p>
+          <p className={cx('question-number')}>Câu {currentQuestion.question_id}:</p>
           <p
             className={cx('question-text')}
-            dangerouslySetInnerHTML={{ __html: currentQuestion.question }}
+            dangerouslySetInnerHTML={{ __html: currentQuestion.text }}
           />
         </div>
         <button
@@ -163,26 +144,26 @@ const QuestionPage: React.FC = () => {
         </button>
       </div>
 
-      <form className={cx('options')} aria-label={`Question ${currentQuestion.id} options`}>
+      <form className={cx('options')} aria-label={`Question ${currentQuestion.question_id} options`}>
         {currentQuestion.options.map((option) => (
           <label
-            key={option.id}
-            htmlFor={option.id}
-            className={cx('option', { selected: selectedOption === option.value })}
+            key={option.option_id}
+            htmlFor={`option${option.option_id}`}
+            className={cx('option', { selected: selectedOption === option.label })}
           >
             <span className={cx('option-label')}>{option.label}</span>
             <input
               type="radio"
-              id={option.id}
-              name={`question${currentQuestion.id}`}
-              value={option.value}
-              checked={selectedOption === option.value}
-              onChange={() => handleOptionChange(option.value)}
+              id={`option${option.option_id}`}
+              name={`question${currentQuestion.question_id}`}
+              value={option.label}
+              checked={selectedOption === option.label}
+              onChange={() => handleOptionChange(option.label)}
               className={cx('option-radio')}
             />
             <span
               className={cx('option-text', {
-                selected: selectedOption === option.value,
+                selected: selectedOption === option.label,
               })}
             >
               {option.text}
@@ -192,24 +173,24 @@ const QuestionPage: React.FC = () => {
       </form>
 
       <nav className={cx('pagination')} aria-label="Pagination">
-        {questions.map((q, index) => (
+        {quizData.questions.map((q, index) => (
           <button
-            key={q.id}
+            key={q.question_id}
             type="button"
             className={cx('page-button', {
               active: index === currentQuestionIndex,
               semiActive: index === currentQuestionIndex - 1,
             })}
-            aria-label={`Page ${q.id}`}
+            aria-label={`Page ${q.question_id}`}
             aria-current={index === currentQuestionIndex ? 'page' : undefined}
             onClick={() => {
               setCurrentQuestionIndex(index);
-              const correctOption = q.options.find((opt) => opt.isCorrect);
-              setSelectedOption(correctOption?.value || '');
-              setReviewChecked(q.isReviewed);
+              const correctOption = q.options.find((opt: Option) => opt.is_correct);
+              setSelectedOption(correctOption?.label || '');
+              setReviewChecked(q.isReviewed || false);
             }}
           >
-            {q.id}
+            {q.question_id}
           </button>
         ))}
         <button
@@ -217,7 +198,7 @@ const QuestionPage: React.FC = () => {
           className={cx('next-button')}
           aria-label="Next question"
           onClick={handleNextQuestion}
-          disabled={currentQuestionIndex === questions.length - 1}
+          disabled={currentQuestionIndex === quizData.questions.length - 1}
         >
           Câu hỏi tiếp theo
         </button>
